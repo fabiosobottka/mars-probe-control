@@ -22,5 +22,24 @@ public class ProbeFixture {
 							.build())
 				.build();
 	}
+	
+	public static Probe withSpecifications(
+			final Integer coordinateX, 
+			final Integer coordinateY, 
+			final CardinalPoint cardinalPoint) {
+		
+		return ProbeBuilder.create()
+				.setPosition(
+						ProbePositionBuilder.create()
+							.setCoordinateX(CoordinateBuilder.create()
+									.setValue(coordinateX)
+									.build())
+							.setCoordinateY(CoordinateBuilder.create()
+									.setValue(coordinateY)
+									.build())
+							.setCardinalPoint(cardinalPoint)
+							.build())
+				.build();
+	}
 
 }

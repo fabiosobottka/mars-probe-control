@@ -23,7 +23,7 @@ public class ExploreMarsUnitTest {
 	@Test
 	public void shouldExploreMarsTestCase01() {
 
-		final Probe probe = ProbeFixture.defaultValues();
+		final Probe probe = ProbeFixture.withSpecifications(1, 2, CardinalPoint.NORTH);
 		final Plateau plateau = PlateauFixture.defaultValues();
 
 		ProbePosition position = exploreMars.execute(probe, plateau, "LMLMLMLMM");
@@ -31,6 +31,19 @@ public class ExploreMarsUnitTest {
 		assertEquals(1, position.getCoordinateX().getValue());
 		assertEquals(3, position.getCoordinateY().getValue());
 		assertEquals(position.getCardinalPoint(), CardinalPoint.NORTH);
+	}
+	
+	@Test
+	public void shouldExploreMarsTestCase02() {
+
+		final Probe probe = ProbeFixture.withSpecifications(3, 3, CardinalPoint.EAST);
+		final Plateau plateau = PlateauFixture.defaultValues();
+
+		ProbePosition position = exploreMars.execute(probe, plateau, "MMRMMRMRRM");
+		
+		assertEquals(5, position.getCoordinateX().getValue());
+		assertEquals(1, position.getCoordinateY().getValue());
+		assertEquals(position.getCardinalPoint(), CardinalPoint.EAST);
 	}
 
 }
