@@ -20,9 +20,9 @@ public class ExploreMars {
 		validateProbeExploringInstructions(commands);
 
 		final char[] commandsArray = commands.toCharArray();
-		for (char direction : commandsArray) {
+		for (char probeCommand : commandsArray) {
 
-			switch (direction) {
+			switch (probeCommand) {
 			case 'L':
 				moveNinetyDegreesToLeft(probe);
 				break;
