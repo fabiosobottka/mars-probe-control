@@ -1,16 +1,21 @@
 package gov.nasa.mars.probe.control.usecases;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.springframework.stereotype.Service;
 
 import gov.nasa.mars.probe.control.entities.CardinalPoint;
 import gov.nasa.mars.probe.control.entities.Plateau;
 import gov.nasa.mars.probe.control.entities.Probe;
 import gov.nasa.mars.probe.control.entities.ProbePosition;
+import gov.nasa.mars.probe.control.exceptions.InvalidProbeCoordinateException;
+import gov.nasa.mars.probe.control.exceptions.InvalidProbeInstructionsException;
 
 @Service
 public class ExploreMars {
 
-	public ProbePosition execute(final Probe probe, final Plateau plateau, final String commands) {
+	public ProbePosition execute(final Probe probe, final Plateau plateau, final String commands) throws Exception {
 
 		validateProbeExploringInstructions(commands);
 
@@ -30,7 +35,6 @@ public class ExploreMars {
 			default:
 				break;
 			}
-
 		}
 
 		return probe.getPosition();
@@ -40,7 +44,16 @@ public class ExploreMars {
 	// private
 	//
 
-	private void moveForward(final Probe probe, final Plateau plateau) {
+	private void validateProbeExploringInstructions(final String commands) {
+
+		final Pattern pattern = Pattern.compile("[LRM]+");
+		final Matcher matcher = pattern.matcher(commands);
+		
+		if(!matcher.matches())
+			throw new InvalidProbeInstructionsException();
+	}
+
+	private void moveForward(final Probe probe, final Plateau plateau) throws InvalidProbeCoordinateException {
 
 		final CardinalPoint cardinalPoint = probe.getPosition().getCardinalPoint();
 		final Integer probeUpperRightCoordinateY = plateau.getUpperRightCoordinateY().getValue();
@@ -123,10 +136,6 @@ public class ExploreMars {
 		default:
 			break;
 		}
-
-	}
-
-	private void validateProbeExploringInstructions(final String commands) {
 
 	}
 
