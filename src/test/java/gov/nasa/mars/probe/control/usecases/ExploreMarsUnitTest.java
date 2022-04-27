@@ -33,7 +33,7 @@ public class ExploreMarsUnitTest {
 
 		assertEquals(1, position.getCoordinateX().getValue());
 		assertEquals(3, position.getCoordinateY().getValue());
-		assertEquals(position.getCardinalPoint(), CardinalPoint.NORTH);
+		assertEquals(CardinalPoint.NORTH, position.getCardinalPoint());
 	}
 
 	@Test
@@ -46,7 +46,7 @@ public class ExploreMarsUnitTest {
 
 		assertEquals(5, position.getCoordinateX().getValue());
 		assertEquals(1, position.getCoordinateY().getValue());
-		assertEquals(position.getCardinalPoint(), CardinalPoint.EAST);
+		assertEquals(CardinalPoint.EAST, position.getCardinalPoint());
 	}
 
 	@Test()
