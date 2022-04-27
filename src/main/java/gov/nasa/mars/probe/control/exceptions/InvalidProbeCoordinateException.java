@@ -7,5 +7,9 @@ public class InvalidProbeCoordinateException extends RuntimeException {
 	public InvalidProbeCoordinateException() {
 		super("Invalid probe coordinate exception");
 	}
+	
+	public InvalidProbeCoordinateException(final String message) {
+		super(message);
+	}
 
 }
