@@ -1,5 +1,7 @@
 package gov.nasa.mars.probe.control.entities;
 
+import gov.nasa.mars.probe.control.exceptions.InvalidProbeCoordinateException;
+
 public class Plateau {
 
 	private Coordinate upperRightCoordinateX;
@@ -29,6 +31,10 @@ public class Plateau {
 	}
 
 	public void setUpperRightCoordinateX(final Coordinate upperRightCoordinateX) {
+
+		if(upperRightCoordinateX.getValue() <= 0)
+			throw new InvalidProbeCoordinateException("Upper right coordinate X has to be greater than zero");
+		
 		this.upperRightCoordinateX = upperRightCoordinateX;
 	}
 
@@ -37,6 +43,10 @@ public class Plateau {
 	}
 
 	public void setUpperRightCoordinateY(final Coordinate upperRightCoordinateY) {
+		
+		if(upperRightCoordinateY.getValue() <= 0)
+			throw new InvalidProbeCoordinateException("Upper right coordinate Y has to be greater than zero");
+		
 		this.upperRightCoordinateY = upperRightCoordinateY;
 	}
 

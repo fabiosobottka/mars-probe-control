@@ -50,14 +50,14 @@ public class MarsProbeController {
 
 			final Probe probe = buildProbeInfo(probeInstruction);
 			try {
-				final var probePosition = exploreMars.execute(probe, plateu,
-						probeInstruction.getExploreInstructionsCommand());
+				final var probePosition = 
+						exploreMars.execute(probe, plateu, probeInstruction.getExploreInstructionsCommand());
+				
 				response.add(probePosition);
 			} catch (final Exception e) {
 				// TODO logs exception
 			}
 		});
-
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
@@ -86,7 +86,6 @@ public class MarsProbeController {
 						.setValue(request.getPlateauUpperRightCoordinates().getUpperRightCoordinateY().getValue())
 						.build())
 				.build();
-
 	}
 
 }
