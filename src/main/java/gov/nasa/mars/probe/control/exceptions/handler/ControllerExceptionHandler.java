@@ -1,5 +1,7 @@
 package gov.nasa.mars.probe.control.exceptions.handler;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -14,10 +16,13 @@ import gov.nasa.mars.probe.control.exceptions.domain.builder.StandardErrorRespon
 
 @ControllerAdvice
 public class ControllerExceptionHandler {
+	
+	private static Logger log = LoggerFactory.getLogger(ControllerExceptionHandler.class);
 
 	@ExceptionHandler(value = { InvalidProbeInstructionsException.class })
 	protected ResponseEntity<Object> handleConflict(final InvalidProbeInstructionsException exception, final WebRequest request) {
 
+		log.error("InvalidProbeInstructionsException", exception);
 		final StandardErrorResponse response = StandardErrorResponseBuilder.create()
 				.setStatus(400)
 				.setMessage(exception.getMessage())
@@ -29,6 +34,8 @@ public class ControllerExceptionHandler {
 	@ExceptionHandler(value = { InvalidProbeCoordinateException.class })
 	protected ResponseEntity<Object> handleConflict(final InvalidProbeCoordinateException exception, final WebRequest request) {
 
+		log.error("InvalidProbeCoordinateException", exception);
+		
 		final StandardErrorResponse response = StandardErrorResponseBuilder.create()
 				.setStatus(400)
 				.setMessage(exception.getMessage())
@@ -40,6 +47,8 @@ public class ControllerExceptionHandler {
 	@ExceptionHandler(value = { InvalidPlateauCoordinateException.class })
 	protected ResponseEntity<Object> handleConflict(final InvalidPlateauCoordinateException exception, final WebRequest request) {
 
+		log.error("InvalidPlateauCoordinateException", exception);
+		
 		final StandardErrorResponse response = StandardErrorResponseBuilder.create()
 				.setStatus(400)
 				.setMessage(exception.getMessage())

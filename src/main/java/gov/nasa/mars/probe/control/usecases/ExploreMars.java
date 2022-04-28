@@ -3,6 +3,8 @@ package gov.nasa.mars.probe.control.usecases;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import gov.nasa.mars.probe.control.entities.CardinalPoint;
@@ -15,14 +17,19 @@ import gov.nasa.mars.probe.control.exceptions.InvalidProbeInstructionsException;
 
 @Service
 public class ExploreMars {
+	
+	private static Logger log = LoggerFactory.getLogger(ExploreMars.class);
 
 	public ProbePosition execute(final Probe probe, final Plateau plateau, final String commands) throws Exception {
 
+		log.info("Validating probe...");
 		validateProbe(probe);
 		
+		log.info("Validating plateau...");
 		validatePlateau(plateau);
 		
-		validateProbeExploringInstructions(commands);
+		log.info("Validating probe explore instructions...");
+		validateProbeExploreInstructions(commands);
 		
 		final char[] commandsArray = commands.toCharArray();
 		
@@ -42,6 +49,7 @@ public class ExploreMars {
 				break;
 			}
 		}
+		log.info("Exploration completed - returning position");
 		return probe.getPosition();
 	}
 
@@ -69,7 +77,7 @@ public class ExploreMars {
 		
 	}
 
-	private void validateProbeExploringInstructions(final String commands) {
+	private void validateProbeExploreInstructions(final String commands) {
 
 		final Pattern pattern = Pattern.compile("[LRM]+");
 		final Matcher matcher = pattern.matcher(commands);
