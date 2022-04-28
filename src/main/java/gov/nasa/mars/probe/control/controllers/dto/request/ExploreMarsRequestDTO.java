@@ -1,11 +1,23 @@
-package gov.nasa.mars.probe.control.controllers.dto;
+package gov.nasa.mars.probe.control.controllers.dto.request;
 
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel(description = "Explore mars request")
 public class ExploreMarsRequestDTO {
 
+	@ApiModelProperty(notes = "Plateau coordinates request", required = true, position = 0)
+	@NotNull
 	private PlateauCoordinatesRequestDTO plateauUpperRightCoordinates;
 
+	@ApiModelProperty(notes = "Probe instructions request", required = true, position = 1)
+	@NotNull
+	@Size(min = 1)
 	private List<ProbeInstructionsRequestDTO> probeInstructions;
 
 	public ExploreMarsRequestDTO() {}

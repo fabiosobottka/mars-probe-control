@@ -13,10 +13,10 @@ public class ProbeFixture {
 				.setPosition(
 						ProbePositionBuilder.create()
 							.setCoordinateX(CoordinateBuilder.create()
-									.setValue(1)
+									.setValue(1L)
 									.build())
 							.setCoordinateY(CoordinateBuilder.create()
-									.setValue(2)
+									.setValue(2L)
 									.build())
 							.setCardinalPoint(CardinalPoint.NORTH)
 							.build())
@@ -24,8 +24,8 @@ public class ProbeFixture {
 	}
 	
 	public static Probe withSpecifications(
-			final Integer coordinateX, 
-			final Integer coordinateY, 
+			final Long coordinateX, 
+			final Long coordinateY, 
 			final CardinalPoint cardinalPoint) {
 		
 		return ProbeBuilder.create()

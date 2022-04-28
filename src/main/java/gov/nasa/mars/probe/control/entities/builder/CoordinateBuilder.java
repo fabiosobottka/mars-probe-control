@@ -4,13 +4,13 @@ import gov.nasa.mars.probe.control.entities.Coordinate;
 
 public class CoordinateBuilder {
 
-	private Integer value;
+	private Long value;
 
 	public static CoordinateBuilder create() {
 		return new CoordinateBuilder();
 	}
 
-	public CoordinateBuilder setValue(final Integer value) {
+	public CoordinateBuilder setValue(final Long value) {
 		this.value = value;
 		return this;
 	}

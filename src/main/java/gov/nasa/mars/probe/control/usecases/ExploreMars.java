@@ -9,6 +9,7 @@ import gov.nasa.mars.probe.control.entities.CardinalPoint;
 import gov.nasa.mars.probe.control.entities.Plateau;
 import gov.nasa.mars.probe.control.entities.Probe;
 import gov.nasa.mars.probe.control.entities.ProbePosition;
+import gov.nasa.mars.probe.control.exceptions.InvalidPlateauCoordinateException;
 import gov.nasa.mars.probe.control.exceptions.InvalidProbeCoordinateException;
 import gov.nasa.mars.probe.control.exceptions.InvalidProbeInstructionsException;
 
@@ -17,9 +18,14 @@ public class ExploreMars {
 
 	public ProbePosition execute(final Probe probe, final Plateau plateau, final String commands) throws Exception {
 
+		validateProbe(probe);
+		
+		validatePlateau(plateau);
+		
 		validateProbeExploringInstructions(commands);
-
+		
 		final char[] commandsArray = commands.toCharArray();
+		
 		for (char probeCommand : commandsArray) {
 
 			switch (probeCommand) {
@@ -36,13 +42,32 @@ public class ExploreMars {
 				break;
 			}
 		}
-
 		return probe.getPosition();
 	}
 
 	//
 	// private
 	//
+	
+	private void validateProbe(final Probe probe) {
+		
+		if(probe.getPosition().getCoordinateX().getValue() < 0)
+			throw new InvalidProbeCoordinateException("Probe coordinate X value cannot be a negative number");
+		
+		if(probe.getPosition().getCoordinateY().getValue() < 0)
+			throw new InvalidProbeCoordinateException("Probe coordinate Y value cannot be a negative number");
+		
+	}
+	
+	private void validatePlateau(final Plateau plateau) {
+		
+		if(plateau.getUpperRightCoordinateX().getValue() <= 0)
+			throw new InvalidPlateauCoordinateException("Upper right coordinate X has to be greater than zero");
+		
+		if(plateau.getUpperRightCoordinateY().getValue() <= 0)
+			throw new InvalidPlateauCoordinateException("Upper right coordinate Y has to be greater than zero");
+		
+	}
 
 	private void validateProbeExploringInstructions(final String commands) {
 
@@ -56,11 +81,11 @@ public class ExploreMars {
 	private void moveForward(final Probe probe, final Plateau plateau) throws InvalidProbeCoordinateException {
 
 		final CardinalPoint cardinalPoint = probe.getPosition().getCardinalPoint();
-		final Integer probeUpperRightCoordinateY = plateau.getUpperRightCoordinateY().getValue();
-		final Integer probeUpperRightCoordinateX = plateau.getUpperRightCoordinateX().getValue();
+		final Long probeUpperRightCoordinateY = plateau.getUpperRightCoordinateY().getValue();
+		final Long probeUpperRightCoordinateX = plateau.getUpperRightCoordinateX().getValue();
 
-		Integer probeCoordinateY;
-		Integer probeCoordinateX;
+		Long probeCoordinateY;
+		Long probeCoordinateX;
 
 		switch (cardinalPoint) {
 		case NORTH:
@@ -77,20 +102,19 @@ public class ExploreMars {
 			break;
 		case SOUTH:
 			probeCoordinateY = probe.getPosition().getCoordinateY().getValue();
-			if (probeCoordinateY > 0) {
+			if (probeCoordinateY > plateau.getBottomLeftCoordinateY().getValue()) {
 				probe.getPosition().getCoordinateY().setValue(probeCoordinateY-1);
 			}
 			break;
 		case WEST:
 			probeCoordinateX = probe.getPosition().getCoordinateX().getValue();
-			if (probeCoordinateX > 0) {
+			if (probeCoordinateX > plateau.getBottomLeftCoordinateX().getValue()) {
 				probe.getPosition().getCoordinateX().setValue(probeCoordinateX-1);
 			}
 			break;
 		default:
 			break;
 		}
-
 	}
 
 	private void moveNinetyDegreesToRight(final Probe probe) {
@@ -136,7 +160,6 @@ public class ExploreMars {
 		default:
 			break;
 		}
-
 	}
 
 }

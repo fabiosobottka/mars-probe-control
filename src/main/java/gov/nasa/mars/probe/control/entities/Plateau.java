@@ -8,22 +8,22 @@ public class Plateau {
 
 	private Coordinate upperRightCoordinateY;
 
-	private Coordinate bottomLeftX;
+	private Coordinate bottomLeftCoordinateX;
 
-	private Coordinate bottomLeftY;
+	private Coordinate bottomLeftCoordinateY;
 
 	public Plateau() {}
 
 	public Plateau(
 			final Coordinate upperRightCoordinateX, 
 			final Coordinate upperRightCoordinateY, 
-			final Coordinate bottomLeftX,
-			final Coordinate bottomLeftY) {
+			final Coordinate bottomLeftCoordinateX,
+			final Coordinate bottomLeftCoordinateY) {
 		super();
 		this.upperRightCoordinateX = upperRightCoordinateX;
 		this.upperRightCoordinateY = upperRightCoordinateY;
-		this.bottomLeftX = bottomLeftX;
-		this.bottomLeftY = bottomLeftY;
+		this.bottomLeftCoordinateX = bottomLeftCoordinateX;
+		this.bottomLeftCoordinateY = bottomLeftCoordinateY;
 	}
 
 	public Coordinate getUpperRightCoordinateX() {
@@ -50,20 +50,20 @@ public class Plateau {
 		this.upperRightCoordinateY = upperRightCoordinateY;
 	}
 
-	public Coordinate getBottomLeftX() {
-		return bottomLeftX;
+	public Coordinate getBottomLeftCoordinateX() {
+		return bottomLeftCoordinateX;
 	}
 
-	public void setBottomLeftX(final Coordinate bottomLeftX) {
-		this.bottomLeftX = bottomLeftX;
+	public void setBottomLeftCoordinateX(final Coordinate bottomLeftCoordinateX) {
+		this.bottomLeftCoordinateX = bottomLeftCoordinateX;
 	}
 
-	public Coordinate getBottomLeftY() {
-		return bottomLeftY;
+	public Coordinate getBottomLeftCoordinateY() {
+		return bottomLeftCoordinateY;
 	}
 
-	public void setBottomLeftY(final Coordinate bottomLeftY) {
-		this.bottomLeftY = bottomLeftY;
+	public void setBottomLeftCoordinateY(final Coordinate bottomLeftCoordinateY) {
+		this.bottomLeftCoordinateY = bottomLeftCoordinateY;
 	}
 
 }
