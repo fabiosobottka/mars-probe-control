@@ -1,13 +1,27 @@
 # mars-probe-control
 Project for the control of probes on Mars
 
-To start application execute start-me.sh file
-
-## Requisitos para rodar a aplicação
+## Requirements to run the application from java command line
 
 - Java 11
 - Maven 3.x
 
-## Access Swagger documentation to explorer mars
+## Requirements to run the application from Docker
+- Java 11
+- Maven 3.x
+- Docker
 
-http://localhost:port/swagger-ui.html
+## Setup enviroment
+1. Clone the project from git
+```
+git clone https://github.com/fabiosobottka/mars-probe-control.git
+```
+
+# Init mars-probe-control - easy mode :)
+```
+./start-me.sh
+```
+After running the script with Git Bash and the logs appear, you can access the
+endpoints using swagger ui:
+http://localhost:8080/swagger-ui.html
+
