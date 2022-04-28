@@ -67,6 +67,7 @@ public class MarsProbeController {
 				response.add(ProbePositionRespondeDTOConverter.toDTO(probePosition));
 			} catch (final Exception e) {
 				log.error("Failed exploration", e);
+				throw new RuntimeException(e);
 			}
 		});
 		
