@@ -14,7 +14,7 @@ Project to control rover robots on Mars
 ## Setup enviroment
 1. Clone the project from git
 ```
-git clone https://github.com/fabiosobottka/mars-probe-control.git
+git clone https://github.com/fabiosobottka/mars-rover-control.git
 ```
 
 # Init mars-rover-control - easy mode :)
