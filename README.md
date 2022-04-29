@@ -1,5 +1,5 @@
-# mars-probe-control
-Project for the control of probes on Mars
+# mars-rover-control
+Project to control rover robots on Mars
 
 ## Requirements to run the application from java command line
 
@@ -17,7 +17,7 @@ Project for the control of probes on Mars
 git clone https://github.com/fabiosobottka/mars-probe-control.git
 ```
 
-# Init mars-probe-control - easy mode :)
+# Init mars-rover-control - easy mode :)
 ```
 ./start-me.sh
 ```

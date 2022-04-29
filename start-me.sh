@@ -26,8 +26,8 @@ startMicroservice() {
 startMicroserviceAsDockerContainer() {
   echo 'STARTING MICROSERVICE'
   mvn clean install
-  docker build -t mars-probe-control .
-  winpty docker run -p 8080:8080 -it --rm --name mars-probe_control_instance mars-probe-control
+  docker build -t mars-rover-control .
+  winpty docker run -p 8080:8080 -it --rm --name mars_rover_control_instance mars-rover-control
 }
 
 main

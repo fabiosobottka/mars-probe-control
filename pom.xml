@@ -12,10 +12,10 @@
 	</parent>
 	
 	<groupId>gov.nasa</groupId>
-	<artifactId>mars-probe-control</artifactId>
+	<artifactId>mars-rover-control</artifactId>
 	<version>1.0.0</version>
-	<name>mars-probe-control</name>
-	<description>Project Mars probe control</description>
+	<name>mars-rover-control</name>
+	<description>Project to control rover robots on Mars</description>
 	
 	<properties>
 		<java.version>11</java.version>
