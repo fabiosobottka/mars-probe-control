@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 
@@ -14,12 +15,16 @@ import gov.nasa.mars.rover.control.exceptions.InvalidPlateauPositionException;
 import gov.nasa.mars.rover.control.exceptions.InvalidPositionException;
 import gov.nasa.mars.rover.control.exceptions.InvalidRoverInstructionsException;
 import gov.nasa.mars.rover.control.fixtures.RoverFixture;
+import gov.nasa.mars.rover.control.gateways.database.providers.RoverDatabaseProvider;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class ExploreMarsUnitTest {
 
 	@InjectMocks
 	private ExplorePlanet explorePlanet;
+	
+	@Mock
+	private RoverDatabaseProvider databaseProvider;
 
 	@Test
 	public void shouldExploreMarsTestCase01() throws Exception {
@@ -81,28 +86,4 @@ public class ExploreMarsUnitTest {
 		});
 	}
 	
-	@Test()
-	public void shouldThrowInvalidPlateauCoordenateExceptionTestCase01() {
-
-		assertThrows(InvalidPlateauPositionException.class, () -> {
-
-			final Rover rover = RoverFixture.withSpecifications(1L, 2L, Direction.EAST);
-
-			explorePlanet.execute(rover, "MMRMMRMRRM");
-
-		});
-	}
-	
-	@Test()
-	public void shouldThrowInvalidPlateauCoordenateExceptionTestCase02() {
-
-		assertThrows(InvalidPlateauPositionException.class, () -> {
-
-			final Rover rover = RoverFixture.withSpecifications(1L, 2L, Direction.EAST);
-
-			explorePlanet.execute(rover, "MMRMMRMRRM");
-
-		});
-	}
-
 }

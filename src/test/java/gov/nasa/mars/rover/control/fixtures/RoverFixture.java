@@ -33,4 +33,15 @@ public class RoverFixture {
 		return rover;
 	}
 
+	public static Rover defaultValuesWithInvalidPlateau() {
+		final Plateau plateau = PlateauFixture.withSpecifications(3L, -5L);
+		final Direction direction = Direction.NORTH;
+		
+		final Position position = new Position(1L, 2L);
+		final Rover rover = new Rover(1L, plateau, direction);
+		rover.registerPosition(position);
+		
+		return new Rover(1L, plateau, direction);
+	}
+
 }
