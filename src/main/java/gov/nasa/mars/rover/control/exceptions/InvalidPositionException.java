@@ -1,14 +1,14 @@
 package gov.nasa.mars.rover.control.exceptions;
 
-public class InvalidRoverCoordinateException extends RuntimeException {
+public class InvalidPositionException extends RuntimeException {
 
 	private static final long serialVersionUID = -3616777315386808992L;
 	
-	public InvalidRoverCoordinateException() {
+	public InvalidPositionException() {
 		super("Invalid rover coordinate exception");
 	}
 	
-	public InvalidRoverCoordinateException(final String message) {
+	public InvalidPositionException(final String message) {
 		super(message);
 	}
 

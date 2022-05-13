@@ -8,46 +8,41 @@ import org.mockito.InjectMocks;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 
-import gov.nasa.mars.rover.control.entities.CardinalPoint;
-import gov.nasa.mars.rover.control.entities.Plateau;
-import gov.nasa.mars.rover.control.entities.Rover;
-import gov.nasa.mars.rover.control.entities.RoverPosition;
-import gov.nasa.mars.rover.control.exceptions.InvalidPlateauCoordinateException;
-import gov.nasa.mars.rover.control.exceptions.InvalidRoverCoordinateException;
+import gov.nasa.mars.rover.control.domain.Direction;
+import gov.nasa.mars.rover.control.domain.Rover;
+import gov.nasa.mars.rover.control.exceptions.InvalidPlateauPositionException;
+import gov.nasa.mars.rover.control.exceptions.InvalidPositionException;
 import gov.nasa.mars.rover.control.exceptions.InvalidRoverInstructionsException;
-import gov.nasa.mars.rover.control.fixtures.PlateauFixture;
 import gov.nasa.mars.rover.control.fixtures.RoverFixture;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class ExploreMarsUnitTest {
 
 	@InjectMocks
-	private ExploreMars exploreMars;
+	private ExplorePlanet explorePlanet;
 
 	@Test
 	public void shouldExploreMarsTestCase01() throws Exception {
 
-		final Rover rover = RoverFixture.withSpecifications(1L, 2L, CardinalPoint.NORTH);
-		final Plateau plateau = PlateauFixture.defaultValues();
+		Rover rover = RoverFixture.withSpecifications(1L, 2L, Direction.NORTH);
 
-		final RoverPosition position = exploreMars.execute(rover, plateau, "LMLMLMLMM");
+		rover = explorePlanet.execute(rover, "LMLMLMLMM");
 
-		assertEquals(1, position.getCoordinateX().getValue());
-		assertEquals(3, position.getCoordinateY().getValue());
-		assertEquals(CardinalPoint.NORTH, position.getCardinalPoint());
+		assertEquals(1, rover.getPosition().getX());
+		assertEquals(3, rover.getPosition().getY());
+		assertEquals(Direction.NORTH, rover.getDirection());
 	}
 
 	@Test
 	public void shouldExploreMarsTestCase02() throws Exception {
 
-		final Rover rover = RoverFixture.withSpecifications(3L, 3L, CardinalPoint.EAST);
-		final Plateau plateau = PlateauFixture.defaultValues();
+		Rover rover = RoverFixture.withSpecifications(3L, 3L, Direction.EAST);
 
-		final RoverPosition position = exploreMars.execute(rover, plateau, "MMRMMRMRRM");
+		rover = explorePlanet.execute(rover, "MMRMMRMRRM");
 
-		assertEquals(5, position.getCoordinateX().getValue());
-		assertEquals(1, position.getCoordinateY().getValue());
-		assertEquals(CardinalPoint.EAST, position.getCardinalPoint());
+		assertEquals(5, rover.getPosition().getX());
+		assertEquals(1, rover.getPosition().getY());
+		assertEquals(Direction.EAST, rover.getDirection());
 	}
 
 	@Test()
@@ -55,10 +50,9 @@ public class ExploreMarsUnitTest {
 
 		assertThrows(InvalidRoverInstructionsException.class, () -> {
 
-			final Rover rover = RoverFixture.withSpecifications(3L, 3L, CardinalPoint.EAST);
-			final Plateau plateau = PlateauFixture.defaultValues();
+			final Rover rover = RoverFixture.withSpecifications(3L, 3L, Direction.EAST);
 
-			exploreMars.execute(rover, plateau, "MMRMMRMRRMJD");
+			explorePlanet.execute(rover, "MMRMMRMRRMJD");
 
 		});
 	}
@@ -66,12 +60,11 @@ public class ExploreMarsUnitTest {
 	@Test()
 	public void shouldThrowInvalidRoverCoordenateExceptionTestCase01() {
 
-		assertThrows(InvalidRoverCoordinateException.class, () -> {
+		assertThrows(InvalidPositionException.class, () -> {
 
-			final Rover rover = RoverFixture.withSpecifications(-3L, 3L, CardinalPoint.EAST);
-			final Plateau plateau = PlateauFixture.defaultValues();
+			final Rover rover = RoverFixture.withSpecifications(-3L, 3L, Direction.EAST);
 
-			exploreMars.execute(rover, plateau, "MMRMMRMRRM");
+			explorePlanet.execute(rover, "MMRMMRMRRM");
 
 		});
 	}
@@ -79,12 +72,11 @@ public class ExploreMarsUnitTest {
 	@Test()
 	public void shouldThrowInvalidRoverCoordenateExceptionTestCase02() {
 
-		assertThrows(InvalidRoverCoordinateException.class, () -> {
+		assertThrows(InvalidPositionException.class, () -> {
 
-			final Rover rover = RoverFixture.withSpecifications(3L, -3L, CardinalPoint.EAST);
-			final Plateau plateau = PlateauFixture.defaultValues();
+			final Rover rover = RoverFixture.withSpecifications(3L, -3L, Direction.EAST);
 
-			exploreMars.execute(rover, plateau, "MMRMMRMRRM");
+			explorePlanet.execute(rover, "MMRMMRMRRM");
 
 		});
 	}
@@ -92,12 +84,11 @@ public class ExploreMarsUnitTest {
 	@Test()
 	public void shouldThrowInvalidPlateauCoordenateExceptionTestCase01() {
 
-		assertThrows(InvalidPlateauCoordinateException.class, () -> {
+		assertThrows(InvalidPlateauPositionException.class, () -> {
 
-			final Rover rover = RoverFixture.withSpecifications(1L, 2L, CardinalPoint.EAST);
-			final Plateau plateau = PlateauFixture.withSpecifications(0L, 5L);
+			final Rover rover = RoverFixture.withSpecifications(1L, 2L, Direction.EAST);
 
-			exploreMars.execute(rover, plateau, "MMRMMRMRRM");
+			explorePlanet.execute(rover, "MMRMMRMRRM");
 
 		});
 	}
@@ -105,12 +96,11 @@ public class ExploreMarsUnitTest {
 	@Test()
 	public void shouldThrowInvalidPlateauCoordenateExceptionTestCase02() {
 
-		assertThrows(InvalidPlateauCoordinateException.class, () -> {
+		assertThrows(InvalidPlateauPositionException.class, () -> {
 
-			final Rover rover = RoverFixture.withSpecifications(1L, 2L, CardinalPoint.EAST);
-			final Plateau plateau = PlateauFixture.withSpecifications(5L, 0L);
+			final Rover rover = RoverFixture.withSpecifications(1L, 2L, Direction.EAST);
 
-			exploreMars.execute(rover, plateau, "MMRMMRMRRM");
+			explorePlanet.execute(rover, "MMRMMRMRRM");
 
 		});
 	}

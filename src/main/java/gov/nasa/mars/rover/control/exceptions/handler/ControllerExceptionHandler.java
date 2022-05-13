@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 
-import gov.nasa.mars.rover.control.exceptions.InvalidRoverCoordinateException;
+import gov.nasa.mars.rover.control.exceptions.InvalidPositionException;
 import gov.nasa.mars.rover.control.exceptions.InvalidRoverInstructionsException;
-import gov.nasa.mars.rover.control.exceptions.InvalidPlateauCoordinateException;
+import gov.nasa.mars.rover.control.exceptions.InvalidPlateauPositionException;
 import gov.nasa.mars.rover.control.exceptions.domain.StandardErrorResponse;
 import gov.nasa.mars.rover.control.exceptions.domain.builder.StandardErrorResponseBuilder;
 
@@ -31,8 +31,8 @@ public class ControllerExceptionHandler {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
 	}
 	
-	@ExceptionHandler(value = { InvalidRoverCoordinateException.class })
-	protected ResponseEntity<Object> handleConflict(final InvalidRoverCoordinateException exception, final WebRequest request) {
+	@ExceptionHandler(value = { InvalidPositionException.class })
+	protected ResponseEntity<Object> handleConflict(final InvalidPositionException exception, final WebRequest request) {
 
 		log.error("InvalidRoverCoordinateException", exception);
 		
@@ -44,8 +44,8 @@ public class ControllerExceptionHandler {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
 	}
 	
-	@ExceptionHandler(value = { InvalidPlateauCoordinateException.class })
-	protected ResponseEntity<Object> handleConflict(final InvalidPlateauCoordinateException exception, final WebRequest request) {
+	@ExceptionHandler(value = { InvalidPlateauPositionException.class })
+	protected ResponseEntity<Object> handleConflict(final InvalidPlateauPositionException exception, final WebRequest request) {
 
 		log.error("InvalidPlateauCoordinateException", exception);
 		

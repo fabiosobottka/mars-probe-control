@@ -2,57 +2,55 @@ package gov.nasa.mars.rover.control.controllers.dto.request;
 
 import javax.validation.constraints.NotNull;
 
-import gov.nasa.mars.rover.control.entities.CardinalPoint;
 import io.swagger.annotations.ApiModelProperty;
 
 public class RoverPositionRequestDTO {
 
 	@ApiModelProperty(notes = "Hover position coordinate X", example = "1", required = true, position = 0)
 	@NotNull
-	private Long coordinateX;
+	private Long x;
 
 	@ApiModelProperty(notes = "Hover position coordinate Y", example = "2", required = true, position = 1)
 	@NotNull
-	private Long coordinateY;
+	private Long y;
 
 	@ApiModelProperty(notes = "Hover position cardinal point", example = "NORTH", required = true, position = 2)
 	@NotNull
-	private CardinalPoint cardinalPoint;
+	private String direction;
 
 	public RoverPositionRequestDTO() {}
 
 	public RoverPositionRequestDTO(
-			final Long coordinateX, 
-			final Long coordinateY,
-			final CardinalPoint cardinalPoint) {
-		super();
-		this.coordinateX = coordinateX;
-		this.coordinateY = coordinateY;
-		this.cardinalPoint = cardinalPoint;
+			final Long x, 
+			final Long y,
+			final String direction) {
+		this.x = x;
+		this.y = y;
+		this.direction = direction;
 	}
 
-	public Long getCoordinateX() {
-		return coordinateX;
+	public Long getX() {
+		return x;
 	}
 
-	public void setCoordinateX(final Long coordinateX) {
-		this.coordinateX = coordinateX;
+	public Long getY() {
+		return y;
 	}
 
-	public Long getCoordinateY() {
-		return coordinateY;
+	public String getDirection() {
+		return direction;
 	}
 
-	public void setCoordinateY(final Long coordinateY) {
-		this.coordinateY = coordinateY;
+	public void setX(final Long x) {
+		this.x = x;
 	}
 
-	public CardinalPoint getCardinalPoint() {
-		return cardinalPoint;
+	public void setY(final Long y) {
+		this.y = y;
 	}
 
-	public void setCardinalPoint(final CardinalPoint cardinalPoint) {
-		this.cardinalPoint = cardinalPoint;
+	public void setDirection(final String direction) {
+		this.direction = direction;
 	}
 
 }

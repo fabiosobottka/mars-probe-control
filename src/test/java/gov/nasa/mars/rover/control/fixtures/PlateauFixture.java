@@ -1,43 +1,26 @@
 package gov.nasa.mars.rover.control.fixtures;
 
-import gov.nasa.mars.rover.control.entities.Plateau;
-import gov.nasa.mars.rover.control.entities.builder.CoordinateBuilder;
-import gov.nasa.mars.rover.control.entities.builder.PlateauBuilder;
+import gov.nasa.mars.rover.control.domain.Plateau;
+import gov.nasa.mars.rover.control.domain.Position;
 
 public class PlateauFixture {
 
 	public static Plateau defaultValues() {
-		return PlateauBuilder.create()
-				.setBottomLeftX(CoordinateBuilder.create()
-						.setValue(0L)
-						.build())
-				.setBottomLeftY(CoordinateBuilder.create()
-						.setValue(0L)
-						.build())
-				.setUpperRightCoordinateX(CoordinateBuilder.create()
-						.setValue(5L)
-						.build())
-				.setUpperRightCoordinateY(CoordinateBuilder.create()
-						.setValue(5L)
-						.build())
-				.build();
+		
+		
+		final Position upperRightPosition = new Position(0L, 0L);
+		final Position bottomLeftPosition = new Position(5L, 5L);
+		
+		
+		return new Plateau(1L, upperRightPosition, bottomLeftPosition);
 	}
 	
 	public static Plateau withSpecifications(final Long upperRightCoordinateX, final Long upperRightCoordinateY) {
-		return PlateauBuilder.create()
-				.setBottomLeftX(CoordinateBuilder.create()
-						.setValue(0L)
-						.build())
-				.setBottomLeftY(CoordinateBuilder.create()
-						.setValue(0L)
-						.build())
-				.setUpperRightCoordinateX(CoordinateBuilder.create()
-						.setValue(upperRightCoordinateX)
-						.build())
-				.setUpperRightCoordinateY(CoordinateBuilder.create()
-						.setValue(upperRightCoordinateY)
-						.build())
-				.build();
+		
+		final Position upperRightPosition = new Position(0L, 0L);
+		final Position bottomLeftPosition = new Position(upperRightCoordinateX, upperRightCoordinateY);
+		
+		return new Plateau(1L, upperRightPosition, bottomLeftPosition);
 	}
 
 }

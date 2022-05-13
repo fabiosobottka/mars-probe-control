@@ -13,7 +13,7 @@ public class ExploreMarsRequestDTO {
 
 	@ApiModelProperty(notes = "Plateau coordinates request", required = true, position = 0)
 	@NotNull
-	private PlateauCoordinatesRequestDTO plateauUpperRightCoordinates;
+	private PlateauUpperRightPositionRequestDTO plateauUpperRightPosition;
 
 	@ApiModelProperty(notes = "Rover instructions request", required = true, position = 1)
 	@NotNull
@@ -22,24 +22,22 @@ public class ExploreMarsRequestDTO {
 
 	public ExploreMarsRequestDTO() {}
 
-	public ExploreMarsRequestDTO(
-			final PlateauCoordinatesRequestDTO plateauUpperRightCoordinates,
+	public ExploreMarsRequestDTO(final PlateauUpperRightPositionRequestDTO plateauUpperRightPosition,
 			final List<RoverInstructionsRequestDTO> roverInstructions) {
-		super();
-		this.plateauUpperRightCoordinates = plateauUpperRightCoordinates;
+		this.plateauUpperRightPosition = plateauUpperRightPosition;
 		this.roverInstructions = roverInstructions;
 	}
 
-	public PlateauCoordinatesRequestDTO getPlateauUpperRightCoordinates() {
-		return plateauUpperRightCoordinates;
-	}
-
-	public void setPlateauUpperRightCoordinates(final PlateauCoordinatesRequestDTO plateauUpperRightCoordinates) {
-		this.plateauUpperRightCoordinates = plateauUpperRightCoordinates;
+	public PlateauUpperRightPositionRequestDTO getPlateauUpperRightPosition() {
+		return plateauUpperRightPosition;
 	}
 
 	public List<RoverInstructionsRequestDTO> getRoverInstructions() {
 		return roverInstructions;
+	}
+
+	public void setPlateauUpperRightPosition(final PlateauUpperRightPositionRequestDTO plateauUpperRightPosition) {
+		this.plateauUpperRightPosition = plateauUpperRightPosition;
 	}
 
 	public void setRoverInstructions(final List<RoverInstructionsRequestDTO> roverInstructions) {
