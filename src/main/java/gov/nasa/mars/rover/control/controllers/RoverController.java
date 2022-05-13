@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import gov.nasa.mars.rover.control.controllers.dto.request.ExploreMarsRequestDTO;
 import gov.nasa.mars.rover.control.controllers.dto.request.RoverExploreCommandsRequestDTO;
-import gov.nasa.mars.rover.control.controllers.dto.response.RoverExploreResponseDTO;
 import gov.nasa.mars.rover.control.controllers.dto.response.RoverResponseDTO;
 import gov.nasa.mars.rover.control.domain.Direction;
 import gov.nasa.mars.rover.control.domain.Plateau;
@@ -69,11 +68,11 @@ public class RoverController {
 			@ApiResponse(code = 400, message = "Explore mars invalid request"),
 			@ApiResponse(code = 500, message = "Internal server error") })
 	@PostMapping(path = "/explore", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<RoverExploreResponseDTO>> explore(
+	public ResponseEntity<List<RoverResponseDTO>> explore(
 			@Valid @RequestBody final ExploreMarsRequestDTO request) {
 
 		log.info("Received explore mars request");
-		final List<RoverExploreResponseDTO> response = new ArrayList<>();
+		final List<RoverResponseDTO> response = new ArrayList<>();
 
 		final Plateau plateau = createPlateau.execute(request.getPlateauUpperRightPosition());
 
@@ -94,11 +93,11 @@ public class RoverController {
 	}
 	
 	@PutMapping(path = "/{roverId}/explore")
-	public ResponseEntity<RoverExploreResponseDTO> explore(@PathVariable("roverId") final Long roverId, @RequestBody final RoverExploreCommandsRequestDTO request) throws Exception {
+	public ResponseEntity<RoverResponseDTO> explore(@PathVariable("roverId") final Long roverId, @RequestBody final RoverExploreCommandsRequestDTO request) throws Exception {
 		
 		final Rover rover = getRoverById.execute(roverId);
 
-		final RoverExploreResponseDTO response = convertToRoverExploreResponseDTO(
+		final RoverResponseDTO response = convertToRoverExploreResponseDTO(
 				explore.execute(rover, request.getExploreInstructionsCommand()));
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
@@ -129,14 +128,14 @@ public class RoverController {
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 
-	private RoverExploreResponseDTO convertToRoverExploreResponseDTO(final Rover rover) {
+	private RoverResponseDTO convertToRoverExploreResponseDTO(final Rover rover) {
 
 		final Long id = rover.getId();
 		final Long x = rover.getPosition().getX();
 		final Long y = rover.getPosition().getY();
 		final Direction direction = rover.getDirection();
 
-		return new RoverExploreResponseDTO(id, x, y, direction.name());
+		return new RoverResponseDTO(id, x, y, direction.name());
 	}
 
 }
